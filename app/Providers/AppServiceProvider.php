@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL; // Додай цей імпорт
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Додай цей блок: якщо ми на сервері (production), змушуємо використовувати HTTPS
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
